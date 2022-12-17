@@ -71,7 +71,7 @@ class CommentDataListLoader {
                             <span>${comment.comment}</span>
                             <div>
                                 <button class="show-reply-button" type="button">답글달기</button>
-                                ${replyFlag ? `` : `<button class="more-comment-button" type="button">답글보기</button>`}
+                                ${comment.haveReplyFlag ? `<button class="more-comment-button" type="button">답글보기</button>` : ``}
                             </div>
                         </li>
                         <li class="write-reply-li visible">

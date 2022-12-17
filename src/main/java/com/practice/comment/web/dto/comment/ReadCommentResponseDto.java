@@ -13,4 +13,5 @@ public class ReadCommentResponseDto {
     private String createDate;
     private String comment;
     private boolean replyFlag;
+    private boolean haveReplyFlag;
 }

@@ -15,6 +15,7 @@ public class Comment {
     private String comment;
     private LocalDateTime create_date;
     private int reply_flag;
+    private int have_reply_flag;
 
     public ReadCommentResponseDto toReadCommentResponseDto() {
         return ReadCommentResponseDto.builder()
@@ -25,6 +26,7 @@ public class Comment {
                 .comment(comment)
                 .createDate(create_date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
                 .replyFlag(reply_flag == 1)
+                .haveReplyFlag(have_reply_flag != 0)
                 .build();
     }
 }

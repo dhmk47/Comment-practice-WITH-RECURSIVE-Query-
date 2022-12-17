@@ -15,7 +15,7 @@
                 parent_user_code,
                 create_date,
                 0 AS depth,
-                CONCAT(id) AS path
+                CONCAT(path) AS path
             from
                 comment_table ct
             WHERE
@@ -43,7 +43,16 @@
                 um2.name as user_name,
                 c.parent_id as parent_comment_code,
                 c.create_date,
-                if(c.parent_user_code = 0, 0, 1) AS reply_flag
+                if(c.parent_user_code = 0, 0, 1) AS reply_flag,
+                IFNULL((select
+                            MAX(id) AS test
+                        from
+                            cte
+                        where
+                            c.id IN (select
+                                        parent_id
+                                    from
+                                        cte) AND c.parent_id = 0), 0) have_reply_flag
             FROM
                 cte c
                 LEFT outer JOIN user_mst um ON(um.user_code = c.parent_user_code)
