@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.practice.comment.domain.comment.CommentRepository">
+
+    <select id="findCommentListByBoardCode" parameterType="Integer" resultType="com.practice.comment.domain.comment.Comment">
+        WITH recursive CTE AS(
+            select
+                id,
+                user_code,
+                COMMENT,
+                parent_id,
+                parent_user_code,
+                create_date,
+                0 AS depth,
+                CONCAT(id) AS path
+            from
+                comment_table ct
+            WHERE
+                parent_id = 0
+
+            UNION all
+
+            select
+                ct.id,
+                ct.user_code,
+                ct.COMMENT,
+                ct.parent_id,
+                ct.parent_user_code,
+                ct.create_date,
+                1 + depth AS depth,
+                if(ct.parent_id = c.id, CONCAT(c.path, ', ', ct.id), ct.id) AS path
+            from
+                comment_table ct
+                inner JOIN CTE c ON(c.id = ct.parent_id)
+            )
+            SELECT
+                c.id as comment_code,
+                c.user_code,
+                if(c.parent_id != 0, concat('@', um.name, ' ', COMMENT), c.comment) AS COMMENT,
+                um2.name as user_name,
+                c.parent_id as parent_comment_code,
+                c.create_date,
+                if(c.parent_user_code = 0, 0, 1) AS reply_flag
+            FROM
+                cte c
+                LEFT outer JOIN user_mst um ON(um.user_code = c.parent_user_code)
+                LEFT outer JOIN user_mst um2 ON(um2.user_code = c.user_code)
+            ORDER BY
+                path;
+    </select>
+</mapper>

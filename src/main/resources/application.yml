@@ -1,0 +1,26 @@
+server:
+  port: ${port:8000}
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+      force-request: true
+      force-response: true
+  tomcat:
+    uri-encoding: UTF-8
+
+spring:
+  mvc:
+    static-path-pattern: /static/**
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+  profiles:
+    include: private
+
+mybatis:
+  mapper-locations:
+    - /mappers/*.xml

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/board/board.css">
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <title>게시글</title>
+</head>
+<body>
+    <main>
+        <div id="container">
+            <div class="title">
+                <h1>게시글</h1>
+            </div>
+            <div class="board-content-div">
+                <div class="content-div">
+                    <textarea readonly>게시글 내용~~~~~</textarea>
+                </div>
+                <div class="comment-div">
+                    <ul class="comment-ul">
+                        <li>
+                            <div class="comment-title">
+                                <p class="writer-p">작성자</p>
+                                <p class="create-date-p">2022-12-13 22:15:13</p>
+                            </div>
+                            <span>댓글1</span>
+                            <div>
+                                <button class="show-reply-button" type="button">답글달기</button>
+                                <button class="more-comment-button" type="button">답글보기</button>
+                            </div>
+                        </li>
+                        <li class="write-reply-li visible">
+                            <textarea></textarea>
+                            <button class="write-reply-button" type="button">작성</button>
+                        </li>
+                        <ul class="reply-ul visible">
+                            <li class="reply-li">
+                                <div class="comment-title">
+                                    <p class="writer-p">작성자</p>
+                                    <p class="create-date-p">2022-12-13 22:15:13</p>
+                                </div>
+                                <span>답글1</span>
+                                <div>
+                                    <button class="show-reply-button" type="button">답글달기</button>
+                                </div>
+                            </li>
+                            <li class="reply-li">
+                                <div class="comment-title">
+                                    <p class="writer-p">작성자</p>
+                                    <p class="create-date-p">2022-12-13 22:15:13</p>
+                                </div>
+                                <span>답글1</span>
+                                <div>
+                                    <button class="show-reply-button" type="button">답글달기</button>
+                                </div>
+                            </li>
+                            <li class="reply-li">
+                                <div class="comment-title">
+                                    <p class="writer-p">작성자</p>
+                                    <p class="create-date-p">2022-12-13 22:15:13</p>
+                                </div>
+                                <span>답글1</span>
+                                <div>
+                                    <button class="show-reply-button" type="button">답글달기</button>
+                                </div>
+                            </li>
+                        </ul>
+
+
+                        <li>
+                            <div class="comment-title">
+                                <p class="writer-p">작성자</p>
+                                <p class="create-date-p">2022-12-13 22:15:13</p>
+                            </div>
+                            <span>댓글1</span>
+                            <div>
+                                <button class="show-reply-button" type="button">답글달기</button>
+                            </div>
+                        </li>
+                        <li class="reply-li visible">
+                            <textarea></textarea>
+                            <button class="write-reply-button" type="button">작성</button>
+                        </li>
+                        <li>
+                            <div class="comment-title">
+                                <p class="writer-p">작성자</p>
+                                <p class="create-date-p">2022-12-13 22:15:13</p>
+                            </div>
+                            <span>댓글1</span>
+                            <div>
+                                <button class="show-reply-button" type="button">답글달기</button>
+                            </div>
+                        </li>
+                        <li class="reply-li visible">
+                            <textarea></textarea>
+                            <button class="write-reply-button" type="button">작성</button>
+                        </li>
+                    </ul>
+                    <li class="write-comment-li">
+                        <textarea></textarea>
+                        <button class="write-comment-button" type="button">작성</button>
+                    </li>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="/static/js/board/board.js"></script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+main {
+    display: flex;
+    justify-content: center;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    margin-top: 100px;
+    
+    width: 980px;
+}
+
+.title h1 {
+    font-size: 30px;
+
+    text-align: center;
+}
+
+.board-content-div {
+    width: 980px;
+    height: 900px;
+
+    background-color: #dbdbdb;
+}
+
+.content-div{
+    display: flex;
+    justify-content: center;
+}
+
+.content-div textarea {
+    border: none;
+    padding: 20px;
+
+    width: 700px;
+    height: 300px;
+
+    resize: none;
+    outline: none;
+
+    background-color: #dbdbdb;
+}
+
+.comment-div {
+    border-top: 1px solid black;
+
+    background-color: #dbdbdb;
+}
+
+.comment-ul li {
+    display: flex;
+    flex-direction: column;
+
+    border-bottom: 1px solid black;
+    padding: 20px;
+}
+
+.comment-title {
+    display: flex;
+
+    margin-bottom: 20px;
+}
+
+.writer-p {
+    width: 100px;
+}
+
+.show-reply-button {
+    border: none;
+    margin-top: 10px;
+    margin-right: 20px;
+
+    width: 52px;
+
+    background-color: #dbdbdb;
+    color: gray;
+}
+
+.more-comment-button {
+    border: none;
+    margin-top: 10px;
+
+    width: 52px;
+
+    background-color: #dbdbdb;
+    color: gray;
+}
+
+.write-reply-li textarea, .write-comment-li textarea {
+    padding: 10px;
+
+    width: 800px;
+    height: 100px;
+
+    resize: none;
+    outline: none;
+}
+
+.write-comment-li {
+    display: flex;
+    flex-direction: column;
+
+    padding: 20px;
+}
+
+.write-reply-button, .write-comment-button, .cancel-reply-button {
+    border: 1px solid darkgrey;
+    margin-top: 10px;
+    margin-right: 20px;
+
+    width: 52px;
+
+    background-color: #dbdbdb;
+    color: gray;
+}
+
+.visible {
+    display: none !important;
+}
