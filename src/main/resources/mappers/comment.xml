@@ -35,29 +35,31 @@
             from
                 comment_table ct
                 inner JOIN CTE c ON(c.id = ct.parent_id)
-            )
-            SELECT
-                c.id as comment_code,
-                c.user_code,
-                if(c.parent_id != 0, concat('@', um.name, ' ', COMMENT), c.comment) AS COMMENT,
-                um2.name as user_name,
-                c.parent_id as parent_comment_code,
-                c.create_date,
-                if(c.parent_user_code = 0, 0, 1) AS reply_flag,
-                IFNULL((select
-                            MAX(id) AS test
-                        from
-                            cte
-                        where
-                            c.id IN (select
-                                        parent_id
-                                    from
-                                        cte) AND c.parent_id = 0), 0) have_reply_flag
-            FROM
-                cte c
-                LEFT outer JOIN user_mst um ON(um.user_code = c.parent_user_code)
-                LEFT outer JOIN user_mst um2 ON(um2.user_code = c.user_code)
-            ORDER BY
-                path;
+        )
+        SELECT
+            c.id,
+            c.user_code,
+            if(c.parent_id != 0, concat('@', um.name, ' ', COMMENT), c.comment) AS COMMENT,
+            um2.name,
+            c.parent_id,
+            c.create_date,
+            depth,
+            if(c.parent_user_code = 0, 0, 1) AS reply_flag,
+            if(c.id = test1.id AND c.parent_id = 0, 1, 0) AS have_reply_flag
+        FROM
+            cte c
+            LEFT OUTER JOIN (select
+                                id
+                            from
+                                cte
+                            where
+                                id IN (select
+                                            parent_id
+                                        from
+                                            cte)) test1 ON(test1.id = c.id)
+            LEFT outer JOIN user_mst um ON(um.user_code = c.parent_user_code)
+            LEFT outer JOIN user_mst um2 ON(um2.user_code = c.user_code)
+        ORDER BY
+            path;
     </select>
 </mapper>
