@@ -29,7 +29,11 @@ public class ProductService {
             throw new ProductException(ProductErrorResult.ALREADY_HAS_PRODUCT_EXCEPTION);
 
         }else {
-            result = productRepository.createProduct(productInfo) > 0;
+            try {
+                result = productRepository.createProduct(productInfo) > 0;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             if(result) {
                 alertService.successAlert();
