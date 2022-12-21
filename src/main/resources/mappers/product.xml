@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.practice.comment.domain.comment.ProductRepository">
+    <insert id="createProduct" parameterType="com.practice.comment.domain.comment.Product">
+        insert into
+            product_mst
+        values(
+            0,
+            #{product_name}
+        );
+    </insert>
+
+    <select id="findProduct" parameterType="com.practice.comment.domain.comment.Product" resultType="com.practice.comment.domain.comment.Product">
+        select
+            product_code,
+            product_name
+        from
+            product_mst
+        where
+            product_name = #{product_name};
+    </select>
+</mapper>

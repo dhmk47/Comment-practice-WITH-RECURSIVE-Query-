@@ -2,7 +2,10 @@ package com.practice.comment.service.comment;
 
 import com.practice.comment.domain.comment.Product;
 import com.practice.comment.domain.comment.ProductRepository;
-import com.practice.comment.handler.aop.AlreadyHasProductException;
+import com.practice.comment.handler.aop.exception.ProductException;
+import com.practice.comment.handler.aop.exception.ProductErrorResult;
+import com.practice.comment.web.dto.CreateProductRequestDto;
+import com.practice.comment.web.dto.CreateProductResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,15 +19,17 @@ public class ProductService {
     private final AlertService alertService;
     private final TestService testService;
 
-    public void createProduct(Product productInfo) throws Exception {
-        Product product = productRepository.findProduct(productInfo);
+    public CreateProductResponseDto createProduct(CreateProductRequestDto createProductRequestDto) {
+        Product productInfo = createProductRequestDto.toProduct();
+        Product productResult = productRepository.findProduct(productInfo);
         int rr = testService.testMethod();
         log.info("test: {}", rr);
-        if(product != null){
-            throw new AlreadyHasProductException();
+        boolean result = false;
+        if(productResult != null){
+            throw new ProductException(ProductErrorResult.ALREADY_HAS_PRODUCT_EXCEPTION);
 
         }else {
-            boolean result = productRepository.createProduct(productInfo) > 0;
+            result = productRepository.createProduct(productInfo) > 0;
 
             if(result) {
                 alertService.successAlert();
@@ -35,5 +40,7 @@ public class ProductService {
             }
         }
 
+        return result ? productInfo.toProductDto() : null;
     }
+
 }
