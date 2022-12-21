@@ -14,11 +14,11 @@
             from
                 comment_table ct
             where
-                board_code = 1),
+                board_code = #{board_code}),
             #{user_code},
             #{board_code},
             #{comment},
-            #{parent_code},
+            #{parent_comment_code},
             NOW(),
             NOW(),
             #{parent_user_code},
@@ -27,7 +27,7 @@
             from
                 comment_table ct
             where
-                board_code = 1)
+                board_code = #{board_code})
         );
     </insert>
 

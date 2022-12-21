@@ -2,6 +2,7 @@ package com.practice.comment.service.comment;
 
 import com.practice.comment.domain.comment.Comment;
 import com.practice.comment.domain.comment.CommentRepository;
+import com.practice.comment.web.dto.comment.CreateCommentRequestDto;
 import com.practice.comment.web.dto.comment.ReadCommentResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,11 @@ import java.util.stream.Collectors;
 public class CommentServiceImpl implements CommentService {
 
     private final CommentRepository commentRepository;
+
+    @Override
+    public boolean saveComment(CreateCommentRequestDto createCommentRequestDto) throws Exception {
+        return commentRepository.saveComment(createCommentRequestDto.toCommentEntity()) > 0;
+    }
 
     @Override
     public List<ReadCommentResponseDto> getCommentListByBoardCode(int boardCode) throws Exception {

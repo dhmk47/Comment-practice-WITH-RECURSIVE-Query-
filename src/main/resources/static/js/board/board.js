@@ -222,7 +222,7 @@ class CommentDataListLoader {
         const replyData = {
             "userCode": Principal.getInstance().user.userCode,
             "boardCode": this.boardCode,
-            "reply": document.querySelectorAll(".write-reply-li")[index].value,
+            "comment": document.querySelectorAll(".write-reply-li")[index].value,
             "parentCode": comment.commentCode,
             "parentUserCode": comment.userCode
         }
