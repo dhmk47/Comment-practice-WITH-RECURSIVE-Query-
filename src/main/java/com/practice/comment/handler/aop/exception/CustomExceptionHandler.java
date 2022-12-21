@@ -14,7 +14,7 @@ public class CustomExceptionHandler {
     @ExceptionHandler({ProductException.class})
     public ResponseEntity<?> alreadyHasProductException(ProductException exception) {
         log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>들어옴");
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(makeErrorResponseEntity(exception.getProductErrorResult()));
+        return makeErrorResponseEntity(exception.getProductErrorResult());
     }
 
     private ResponseEntity<?> makeErrorResponseEntity(ProductErrorResult errorResult) {

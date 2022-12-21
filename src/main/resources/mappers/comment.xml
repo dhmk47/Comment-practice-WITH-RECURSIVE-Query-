@@ -5,6 +5,32 @@
 
 <mapper namespace="com.practice.comment.domain.comment.CommentRepository">
 
+    <insert id="saveComment" parameterType="com.practice.comment.domain.comment.Comment">
+        INSERT INTO
+            comment_table
+        VALUES(
+            (select
+                ifnull(MAX(ct.id) + 1, 1001)
+            from
+                comment_table ct
+            where
+                board_code = 1),
+            #{user_code},
+            #{board_code},
+            #{comment},
+            #{parent_code},
+            NOW(),
+            NOW(),
+            #{parent_user_code},
+            (select
+                ifnull(MAX(ct.id) + 1, 1001)
+            from
+                comment_table ct
+            where
+                board_code = 1)
+        );
+    </insert>
+
     <select id="findCommentListByBoardCode" parameterType="Integer" resultType="com.practice.comment.domain.comment.Comment">
         WITH recursive CTE AS(
             select
@@ -37,10 +63,10 @@
                 inner JOIN CTE c ON(c.id = ct.parent_id)
         )
         SELECT
-            c.id,
+            c.id comment_code,
             c.user_code,
             if(c.parent_id != 0, concat('@', um.name, ' ', COMMENT), c.comment) AS COMMENT,
-            um2.name,
+            um2.name as user_name,
             c.parent_id,
             c.create_date,
             depth,

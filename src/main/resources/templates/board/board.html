@@ -15,6 +15,21 @@
             <div class="title">
                 <h1>게시글</h1>
             </div>
+            <div class="sign-up-div">
+                <input type="text" class="user-name" placeholder="이름">
+                <input type="text" class="user-id" placeholder="아이디">
+                <input type="password" class="user-password" placeholder="비밀번호">
+                <div class="sign-up-button-div">
+                    <button type="button">회원가입</button>
+                </div>
+            </div>
+            <form class="login-form" method="post" action="/auth/login">
+                <input type="text" class="user-id" name="username" placeholder="아이디">
+                <input type="password" class="user-password" name="password" placeholder="비밀번호">
+                <div class="login-button-div">
+                    <button type="submit">로그인</button>
+                </div>
+            </form>
             <div class="board-content-div">
                 <div class="content-div">
                     <textarea readonly>게시글 내용~~~~~</textarea>
@@ -99,10 +114,6 @@
                             <button class="write-reply-button" type="button">작성</button>
                         </li>
                     </ul>
-                    <li class="write-comment-li">
-                        <textarea></textarea>
-                        <button class="write-comment-button" type="button">작성</button>
-                    </li>
                 </div>
             </div>
         </div>

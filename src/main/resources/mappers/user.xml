@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.practice.comment.domain.user.UserRepository">
+
+    <insert id="saveUser" parameterType="com.practice.comment.domain.user.User">
+        INSERT INTO
+            user_mst
+        VALUES(
+            0,
+            #{user_name},
+            #{user_id},
+            #{user_password},
+            'ROLE_USER',
+            NOW(),
+            NOW()
+        );
+    </insert>
+
+    <select id="findUserByUserId" parameterType="String" resultType="com.practice.comment.domain.user.User">
+        SELECT
+            um.user_code,
+            um.name as user_name,
+            um.user_id,
+            um.password as user_password,
+            um.roles,
+            um.create_date,
+            um.update_date
+        FROM
+            user_mst um
+            LEFT OUTER JOIN user_dtl ud ON(ud.user_code = um.user_code)
+        WHERE
+            user_id = #{um.user_id};
+    </select>
+</mapper>

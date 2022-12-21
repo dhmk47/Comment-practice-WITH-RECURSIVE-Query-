@@ -19,6 +19,29 @@ main {
     text-align: center;
 }
 
+.login-form, .sign-up-div {
+    display: flex;
+    justify-content: center;
+
+    margin: 50px 0px;
+}
+
+.login-form input, .sign-up-div input {
+    padding: 5px;
+
+    width: 200px;
+    height: 30px;
+}
+
+.login-button-div, .sign-up-button-div {
+    margin-left: 5px;;
+}
+
+.login-button-div button, .sign-up-button-div button {
+    width: 80px;
+    height: 30px;
+}
+
 .board-content-div {
     width: 980px;
     height: 900px;
@@ -86,7 +109,7 @@ main {
     width: 52px;
 
     background-color: #dbdbdb;
-    color: gray;
+    color: blue;
 }
 
 .write-reply-li textarea, .write-comment-li textarea {
