@@ -87,16 +87,18 @@ main {
     margin-bottom: 20px;
 }
 
+.parent-user-name-span {
+    color: blue;
+}
+
 .writer-p {
-    width: 100px;
+    margin-right: 20px;
 }
 
 .show-reply-button {
     border: none;
     margin-top: 10px;
     margin-right: 20px;
-
-    width: 52px;
 
     background-color: #dbdbdb;
     color: gray;

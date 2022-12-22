@@ -10,8 +10,10 @@ public class ReadCommentResponseDto {
     private int parentCommentCode;
     private int userCode;
     private String userName;
+    private String parentUserName;
     private String createDate;
     private String comment;
+    private String nonBreakingSpace;
     private boolean replyFlag;
     private boolean haveReplyFlag;
 }

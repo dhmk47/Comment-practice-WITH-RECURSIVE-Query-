@@ -3,13 +3,11 @@ package com.practice.comment.web.controller.api;
 import com.practice.comment.handler.aop.annotaion.Log;
 import com.practice.comment.service.comment.CommentService;
 import com.practice.comment.web.dto.CustomResponseDto;
+import com.practice.comment.web.dto.comment.CreateCommentRequestDto;
 import com.practice.comment.web.dto.comment.ReadCommentResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,6 +17,21 @@ import java.util.List;
 public class CommentRestController {
 
     private final CommentService commentService;
+
+    @Log
+    @PostMapping("")
+    public ResponseEntity<?> saveComment(@RequestBody CreateCommentRequestDto createCommentRequestDto) {
+        boolean status = false;
+
+        try {
+            status = commentService.saveComment(createCommentRequestDto);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().body(new CustomResponseDto<>(-1, "Failed to save comment", status));
+        }
+
+        return ResponseEntity.ok(new CustomResponseDto<>(1, "Successfully save the comment", status));
+    }
 
     @Log
     @GetMapping("/list/{boardCode}")

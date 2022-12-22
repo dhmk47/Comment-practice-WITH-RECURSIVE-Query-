@@ -19,7 +19,9 @@ public class Comment {
     private int user_code;
     private int board_code;
     private String user_name;
+    private String parent_user_name;
     private String comment;
+    private String non_breaking_space;
     private int parent_user_code;
     private LocalDateTime create_date;
     private int reply_flag;
@@ -31,7 +33,9 @@ public class Comment {
                 .parentCommentCode(parent_comment_code)
                 .userCode(user_code)
                 .userName(user_name)
+                .parentUserName(parent_user_name)
                 .comment(comment)
+                .nonBreakingSpace(non_breaking_space)
                 .createDate(create_date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
                 .replyFlag(reply_flag == 1)
                 .haveReplyFlag(have_reply_flag != 0)

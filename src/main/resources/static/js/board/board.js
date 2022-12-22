@@ -34,9 +34,11 @@ class CommentDataListLoader {
             let replyUl = null;
 
             commentList.forEach(comment => {
+                console.log(comment);
                 const replyFlag = comment.replyFlag;
 
                 if(replyFlag) {
+                    const nonBreakingSpace = comment.nonBreakingSpace.replaceAll(" ", "&nbsp;");
                     if(newCommentFlag) {
                         commentUl.innerHTML += `
                             <ul class="reply-ul visible"></ul>
@@ -50,12 +52,12 @@ class CommentDataListLoader {
                     replyUl.innerHTML += `
                         <li class="reply-li">
                             <div class="comment-title">
-                                <p class="writer-p">${comment.userName}</p>
+                                <p class="writer-p">${nonBreakingSpace + comment.userName}</p>
                                 <p class="create-date-p">${comment.createDate}</p>
                             </div>
-                            <span>${comment.comment}</span>
+                            <span><span class="parent-user-name-span">${nonBreakingSpace + comment.parentUserName}</span>${comment.comment}</span>
                             <div>
-                                ${loginFlag ? `<button class="show-reply-button" type="button">답글달기</button>` : ``}
+                                ${loginFlag ? `<button class="show-reply-button" type="button">${nonBreakingSpace}답글달기</button>` : ``}
                             </div>
                         </li>
                         <li class="write-reply-li visible">
@@ -110,6 +112,7 @@ class CommentDataListLoader {
             `;
 
             this.setWriteReplyButtonClickEvent(commentList);
+            this.setWriteCommentButtonClickEvent();
         }
 
         this.setMoreCommentButtonClickEvent();
@@ -197,11 +200,50 @@ class CommentDataListLoader {
     }
 
     writeReplyRequest(comment, index) {
-        const commentData = this.getCommentData(comment, index);
+        const replyData = this.getReplyData(comment, index);
+        this.sendCommentAndReplySaveAjax(replyData);
+    }
+
+    getReplyData(comment, index) {
+        const replyData = {
+            "userCode": Principal.getInstance().user.userCode,
+            "boardCode": this.boardCode,
+            "comment": document.querySelectorAll(".write-reply-li textarea")[index].value,
+            "parentCode": comment.commentCode,
+            "parentUserCode": comment.userCode
+        }
+        
+        return replyData;
+    }
+
+    setWriteCommentButtonClickEvent() {
+        const writeCommentButton = document.querySelector(".write-comment-button");
+
+        writeCommentButton.onclick = () => this.writeCommentRequest();
+    }
+
+    writeCommentRequest() {
+        const commentData = this.getCommentData();
+        this.sendCommentAndReplySaveAjax(commentData);
+    }
+
+    getCommentData() {
+        const commentData = {
+            "userCode": Principal.getInstance().user.userCode,
+            "boardCode": this.boardCode,
+            "comment": document.querySelector(".write-comment-li textarea").value,
+            "parentCode": 0,
+            "parentUserCode": 0
+        }
+
+        return commentData;
+    }
+
+    sendCommentAndReplySaveAjax(commentData) {
         $.ajax({
             async: false,
             type: "post",
-            url: `/api/v1/commnet/`,
+            url: `/api/v1/comment`,
             contentType: "application/json",
             data: JSON.stringify(commentData),
             dataType: "json",
@@ -216,18 +258,6 @@ class CommentDataListLoader {
                 console.log(error);
             }
         })
-    }
-
-    getCommentData(comment, index) {
-        const replyData = {
-            "userCode": Principal.getInstance().user.userCode,
-            "boardCode": this.boardCode,
-            "comment": document.querySelectorAll(".write-reply-li")[index].value,
-            "parentCode": comment.commentCode,
-            "parentUserCode": comment.userCode
-        }
-        
-        return replyData;
     }
 }
 
